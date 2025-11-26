@@ -1,7 +1,5 @@
 # Time-Course-Optimal-Vaccine-Prioritization
 
-Preprint: arXiv:2511.07200
-
 Overview
 
 This repository implements a long-term vaccine allocation framework for epidemic control when transmission has memory. Many benefits of vaccination emerge only long after vaccination; short-horizon rules overweight immediate outcomes and miss indirect effects of vaccination. We build an age-structured non-Markovian model with a fast final-state predictor obtained by mapping the non-Markovian final state to an equivalent Markovian representation. At each decision point, the policy uses this predictor to choose the allocation that minimizes the eventual epidemic burden, balancing transmission blocking with direct protection as incidence, immunity, and coverage evolve.
