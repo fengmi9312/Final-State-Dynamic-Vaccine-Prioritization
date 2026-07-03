@@ -1,23 +1,19 @@
 # Dynamic Vaccine Prioritization via Non-Markovian Final-state Optimization
 
-This repository contains the code, data products, figures, and manuscript files for the project **Dynamic Vaccine Prioritization via Non-Markovian Final-state Optimization**.
+This repository contains the code for the project **Dynamic Vaccine Prioritization via Non-Markovian Final-state Optimization**.
 
-The project studies age-stratified, non-Markovian epidemic dynamics and dynamic vaccine allocation. It compares allocation strategies that minimize different final epidemic burdens, including cumulative infections (`c`), deaths (`d`), and years of life lost (`y`), and generates the analysis tables and figures used in the manuscript.
+The project studies age-stratified, non-Markovian epidemic dynamics and dynamic vaccine allocation. It compares allocation strategies that minimize different final epidemic burdens, including cumulative infections (`c`), deaths (`d`), and years of life lost (`y`).
 
 ## Repository Layout
 
 ```text
 .
-|-- AnalysisCode/        # Scripts that aggregate raw experiment outputs into analysis workbooks
-|-- AnalysisData/        # Generated analysis workbooks used by plotting scripts
-|-- Dependencies/        # Shared model code, helper utilities, and input data dependencies
+|-- AnalysisCode/        # Scripts that aggregate raw experiment outputs
+|-- Dependencies/        # Shared model code and helper utilities
 |-- ExperimentalCode/    # Experiment entry points and task implementations
-|-- ExperimentalData/    # Generated experiment workbooks
 |-- ExtensionCode/       # Optional C++/Python extension source and build files
-|-- Figure/              # Generated and assembled figures
 |-- FigureCode/          # Figure drawing scripts
-|-- RefinementCode/      # Refinement workflow scripts
-`-- Text/                # Manuscript, supplementary material, submission PDFs, and responses
+`-- RefinementCode/      # Refinement workflow scripts
 ```
 
 ## Environment
@@ -37,21 +33,17 @@ python setup.py build_ext --inplace
 
 On Windows, the Visual Studio solution is under `ExtensionCode/metapopulation_simulation/`.
 
-## Data Dependencies
+## Local Data and Outputs
 
-Input data used by the model are stored under `Dependencies/DataDependencies/`, including:
+Large data files, generated experiment outputs, figures, and manuscript build products are intentionally ignored by git. In a local reproduction workspace they may be placed or generated in the following paths:
 
-- COVID-19 time series data
-- contact matrices
-- population data
-- infectiousness profiles
-- vaccination data
+- `Dependencies/DataDependencies/`: input data used by the model, such as contact matrices, population data, infectiousness profiles, vaccination data, and COVID-19 time series.
+- `ExperimentalData/`: per-task simulation outputs.
+- `AnalysisData/`: aggregated workbooks consumed by plotting code.
+- `Figure/`: generated PDF panels and assembled figure files.
+- `Text/`: manuscript and supplementary material files, if included in the local workspace.
 
-Generated outputs are stored separately:
-
-- `ExperimentalData/`: per-task simulation outputs
-- `AnalysisData/`: aggregated workbooks consumed by plotting code
-- `Figure/`: generated PDF panels and assembled image/Illustrator files
+These directories are not assumed to be present in a clean clone unless they are provided separately or regenerated.
 
 ## Running Experiments
 
@@ -76,7 +68,7 @@ Note: the Windows/macOS branch in `ExperimentalCode/main.py` contains local debu
 
 ## Running Analysis
 
-Analysis scripts load experiment files from `ExperimentalData/` and write aggregated Excel workbooks to `AnalysisData/`.
+Analysis scripts load local experiment files from `ExperimentalData/` and write aggregated Excel workbooks to `AnalysisData/`. Both directories are generated or supplied locally and are ignored by git.
 
 ```bash
 python AnalysisCode/analysis_main.py
@@ -86,7 +78,7 @@ Before running, set the `additional_task_dict` and `anal_list` variables in `Ana
 
 ## Generating Figures
 
-Figure scripts load workbooks from `AnalysisData/` and write figure panels to `Figure/`.
+Figure scripts load local workbooks from `AnalysisData/` and write figure panels to `Figure/`. Both directories are generated or supplied locally and are ignored by git.
 
 ```bash
 python FigureCode/figure_main.py
@@ -96,7 +88,7 @@ Before running, set `anal_list` and `fig_dict` in `FigureCode/figure_main.py` to
 
 ## Manuscript Files
 
-The manuscript source and compiled submission materials are under `Text/`:
+Manuscript source and compiled submission materials may be present under `Text/` in a local working copy, but `Text/` is ignored by git and is not treated as part of the code release:
 
 - `Text/Response-of-Time-Course-Optimal-Vaccine-Prioritization/MainText/`
 - `Text/Response-of-Time-Course-Optimal-Vaccine-Prioritization/SupplementaryMaterial/`
@@ -109,6 +101,6 @@ The main manuscript title is:
 ## Notes for Reproduction
 
 - Many experiment outputs are large Excel workbooks. Regenerating all experiments can be computationally expensive and is intended for parallel execution.
-- Existing `AnalysisData/` and `Figure/` files can be used directly to inspect or regenerate figures without rerunning every simulation.
+- If local `AnalysisData/` and `Figure/` files are available, they can be used directly to inspect or regenerate figures without rerunning every simulation.
 - Task output paths are controlled by `Dependencies/FrameDependencies/name_principle.py`.
-- The `.gitignore` treats large data, outputs, figures, and text build products as generated artifacts, even though this working copy may include them for local reproduction.
+- The `.gitignore` treats large data, outputs, figures, and text build products as local artifacts.
